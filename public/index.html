@@ -5,10 +5,281 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Commerce Shield</title>
+    <style>
+      :root {
+        --cs-navy: #082946;
+        --cs-navy-2: #0e3a5e;
+        --cs-sky: #7db7df;
+      }
+
+      body {
+        padding-top: 64px;
+        padding-bottom: 92px;
+      }
+
+      .cs-navy-header {
+        position: fixed;
+        inset: 0 0 auto 0;
+        z-index: 2147483000;
+        min-height: 64px;
+        padding: 12px 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        color: #ffffff;
+        background: linear-gradient(135deg, var(--cs-navy), var(--cs-navy-2));
+        box-shadow: 0 10px 30px rgba(3, 20, 36, 0.28);
+        font-family: Montserrat, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      .cs-navy-header__brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-width: 0;
+      }
+
+      .cs-navy-header__mark {
+        width: 38px;
+        height: 38px;
+        border-radius: 12px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.14);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        font-weight: 800;
+        letter-spacing: 0.04em;
+      }
+
+      .cs-navy-header__title {
+        margin: 0;
+        color: #ffffff;
+        font-size: 18px;
+        line-height: 1.15;
+        font-weight: 750;
+        letter-spacing: 0.01em;
+      }
+
+      .cs-navy-header__subtitle {
+        margin: 3px 0 0;
+        color: rgba(255, 255, 255, 0.76);
+        font-size: 12px;
+        line-height: 1.2;
+        font-weight: 500;
+      }
+
+      .cs-navy-header__pill {
+        flex: 0 0 auto;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 999px;
+        padding: 7px 12px;
+        color: #eaf6ff;
+        background: rgba(255, 255, 255, 0.11);
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .cs-threshold-dock {
+        position: fixed;
+        inset: auto 18px 18px 18px;
+        z-index: 2147483000;
+        max-width: 860px;
+        margin: 0 auto;
+        padding: 14px 18px;
+        display: grid;
+        grid-template-columns: minmax(180px, 1fr) minmax(240px, 420px) auto;
+        align-items: center;
+        gap: 16px;
+        color: #ffffff;
+        background: rgba(8, 41, 70, 0.96);
+        border: 1px solid rgba(125, 183, 223, 0.36);
+        border-radius: 18px;
+        box-shadow: 0 18px 40px rgba(3, 20, 36, 0.32);
+        backdrop-filter: blur(12px);
+        font-family: Montserrat, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      .cs-threshold-dock__label {
+        display: grid;
+        gap: 3px;
+      }
+
+      .cs-threshold-dock__label strong {
+        color: #ffffff;
+        font-size: 13px;
+        font-weight: 800;
+      }
+
+      .cs-threshold-dock__label span {
+        color: rgba(255, 255, 255, 0.72);
+        font-size: 11px;
+        font-weight: 500;
+      }
+
+      .cs-threshold-dock input[type="range"] {
+        width: 100%;
+        accent-color: var(--cs-sky);
+        cursor: pointer;
+      }
+
+      .cs-threshold-dock__value {
+        min-width: 44px;
+        height: 36px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px;
+        color: #092743;
+        background: #ffffff;
+        font-size: 16px;
+        font-weight: 900;
+      }
+
+      .cs-threshold-dock__status {
+        grid-column: 1 / -1;
+        color: rgba(255, 255, 255, 0.68);
+        font-size: 11px;
+        line-height: 1.25;
+      }
+
+      @media (max-width: 720px) {
+        body {
+          padding-top: 76px;
+          padding-bottom: 134px;
+        }
+
+        .cs-navy-header {
+          align-items: flex-start;
+          flex-direction: column;
+          padding: 12px 16px;
+          gap: 8px;
+        }
+
+        .cs-navy-header__pill {
+          display: none;
+        }
+
+        .cs-threshold-dock {
+          grid-template-columns: 1fr auto;
+          left: 10px;
+          right: 10px;
+          bottom: 10px;
+          padding: 12px;
+        }
+
+        .cs-threshold-dock input[type="range"] {
+          grid-column: 1 / -1;
+        }
+      }
+    </style>
     <script type="module" crossorigin src="/assets/index-B8f9rn3l.js"></script>
     <link rel="stylesheet" crossorigin href="/assets/index-Dv_HmZPJ.css">
   </head>
   <body>
-    <div id="root"></div>
+    <header class="cs-navy-header" aria-label="Commerce Shield app header">
+      <div class="cs-navy-header__brand">
+        <span class="cs-navy-header__mark">CS</span>
+        <div>
+          <p class="cs-navy-header__title">Commerce Shield</p>
+          <p class="cs-navy-header__subtitle">GCW protection dashboard</p>
+        </div>
+      </div>
+      <span class="cs-navy-header__pill">Navy header restored</span>
+    </header>
+
+    <div id="root"></div>
+
+    <section class="cs-threshold-dock" aria-label="Threshold sensitivity control">
+      <div class="cs-threshold-dock__label">
+        <strong>Threshold sensitivity</strong>
+        <span>Adjust from 1–10</span>
+      </div>
+      <input id="cs-threshold-slider" type="range" min="1" max="10" step="1" value="6" aria-label="Threshold sensitivity from 1 to 10" />
+      <output id="cs-threshold-value" class="cs-threshold-dock__value" for="cs-threshold-slider">6</output>
+      <div id="cs-threshold-status" class="cs-threshold-dock__status" aria-live="polite">Balanced threshold sensitivity.</div>
+    </section>
+
+    <script>
+      (() => {
+        const slider = document.getElementById('cs-threshold-slider');
+        const value = document.getElementById('cs-threshold-value');
+        const status = document.getElementById('cs-threshold-status');
+        const storageKey = 'commerceShield.thresholdSensitivity10';
+        const params = new URLSearchParams(window.location.search);
+        const shop = (params.get('shop') || '').trim().toLowerCase();
+        const validShop = /^[a-z0-9][a-z0-9-]*\.myshopify\.com$/.test(shop) ? shop : '';
+        let saveTimer = 0;
+
+        const clamp10 = (raw) => {
+          const parsed = Number(raw);
+          if (!Number.isFinite(parsed)) return 6;
+          return Math.min(10, Math.max(1, Math.round(parsed)));
+        };
+
+        const toWorkerSensitivity = (sliderValue) => Math.round(10 + ((clamp10(sliderValue) - 1) * 85) / 9);
+        const fromWorkerSensitivity = (workerValue) => clamp10(1 + ((Number(workerValue) - 10) * 9) / 85);
+
+        const labelFor = (sliderValue) => {
+          const v = clamp10(sliderValue);
+          if (v >= 9) return 'Very selective threshold sensitivity.';
+          if (v >= 6) return 'Balanced threshold sensitivity.';
+          if (v >= 3) return 'Broad threshold sensitivity.';
+          return 'Exploratory threshold sensitivity.';
+        };
+
+        const render = (nextValue, message) => {
+          const normalized = clamp10(nextValue);
+          slider.value = String(normalized);
+          value.textContent = String(normalized);
+          status.textContent = message || labelFor(normalized);
+        };
+
+        const persist = async (nextValue) => {
+          const normalized = clamp10(nextValue);
+          localStorage.setItem(storageKey, String(normalized));
+          if (!validShop) {
+            status.textContent = `${labelFor(normalized)} Saved locally.`;
+            return;
+          }
+
+          try {
+            const response = await fetch('/api/admin/settings', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                shop: validShop,
+                intent: { sensitivity: toWorkerSensitivity(normalized) },
+              }),
+            });
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            status.textContent = `${labelFor(normalized)} Saved for ${validShop}.`;
+          } catch (error) {
+            status.textContent = `${labelFor(normalized)} Saved locally; API sync failed.`;
+          }
+        };
+
+        const stored = localStorage.getItem(storageKey);
+        render(stored || 6);
+
+        if (validShop) {
+          fetch(`/api/admin/settings?shop=${encodeURIComponent(validShop)}`)
+            .then((response) => response.ok ? response.json() : null)
+            .then((payload) => {
+              const sensitivity = payload?.settings?.intent?.sensitivity;
+              if (typeof sensitivity !== 'undefined') render(fromWorkerSensitivity(sensitivity), `Loaded saved sensitivity for ${validShop}.`);
+            })
+            .catch(() => {});
+        }
+
+        slider.addEventListener('input', () => render(slider.value));
+        slider.addEventListener('change', () => persist(slider.value));
+        slider.addEventListener('input', () => {
+          clearTimeout(saveTimer);
+          saveTimer = window.setTimeout(() => persist(slider.value), 450);
+        });
+      })();
+    </script>
   </body>
 </html>
