@@ -29,6 +29,7 @@
   var SITE_KEY = '0x4AAAAAADI8ti4vY8C6Vy8O';
   var WORKER   = 'https://commerce-shield-prod.ncassidy.workers.dev';
   var VERIFY_API = 'https://commerce-shield.onrender.com/api/turnstile-verify';
+  var SHOP = {{ shop.permanent_domain | json }};
 
   var widgetId = null;
   var pendingSubmit = null;
@@ -70,7 +71,7 @@
   }
 
   function verifyTurnstileToken(token) {
-    var payload = JSON.stringify({ token: token, action: 'account' });
+    var payload = JSON.stringify({ token: token, action: 'account', shop: SHOP });
     return fetch(VERIFY_API, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
