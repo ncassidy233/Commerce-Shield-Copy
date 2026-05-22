@@ -232,9 +232,13 @@ app.post('/api/turnstile-verify', async (req, res) => {
 
   const token = typeof req.body?.token === 'string' ? req.body.token.slice(0, 2048) : '';
   const action = typeof req.body?.action === 'string' ? req.body.action.slice(0, 50) : '';
+  const shop = normalizeShopDomain(req.body?.shop);
 
   if (!token) {
     return res.status(400).json({ ok: false, error: 'missing_token' });
+  }
+  if (!shop) {
+    return res.status(400).json({ ok: false, error: 'invalid_shop' });
   }
 
   try {
@@ -244,7 +248,7 @@ app.post('/api/turnstile-verify', async (req, res) => {
         'Content-Type': 'application/json',
         'User-Agent': 'commerce-shield-render-proxy/1.0',
       },
-      body: JSON.stringify({ token, action }),
+      body: JSON.stringify({ token, action, shop }),
     });
 
     const bodyText = await upstream.text();
