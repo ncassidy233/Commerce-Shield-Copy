@@ -267,6 +267,47 @@ app.post('/api/turnstile-verify', async (req, res) => {
   }
 });
 
+const WORKER_API_PROXY_PATHS = new Set([
+  '/api/dashboard',
+  '/api/recent',
+  '/api/admin/settings',
+  '/api/admin/false-positive-watch',
+  '/api/admin/pixel-guard-status',
+  '/api/admin/install-pixel-guard',
+  '/api/admin/cleanup-pixel-guard',
+]);
+
+function applyWorkerProxyHeaders(res, contentType) {
+  res.setHeader('Cache-Control', 'no-store');
+  if (contentType) res.setHeader('Content-Type', contentType);
+}
+
+app.use(async (req, res, next) => {
+  if (!WORKER_API_PROXY_PATHS.has(req.path)) return next();
+
+  try {
+    const upstreamUrl = `${WORKER_ORIGIN}${req.originalUrl}`;
+    const headers = {
+      'User-Agent': 'commerce-shield-render-api-proxy/1.0',
+      'Accept': req.headers.accept || 'application/json',
+    };
+
+    const init = { method: req.method, headers };
+    if (!['GET', 'HEAD'].includes(req.method)) {
+      headers['Content-Type'] = 'application/json';
+      init.body = JSON.stringify(req.body || {});
+    }
+
+    const upstream = await fetch(upstreamUrl, init);
+    const bodyText = await upstream.text();
+    applyWorkerProxyHeaders(res, upstream.headers.get('content-type') || 'application/json; charset=utf-8');
+    return res.status(upstream.status).send(bodyText);
+  } catch (err) {
+    log('error', `worker api proxy failed: ${req.method} ${req.originalUrl}: ${err.message}`);
+    return res.status(502).json({ error: 'Worker API proxy failed', details: err.message });
+  }
+});
+
 // Health check
 app.get('/api/health', (_req, res) => res.json({ ok: true, timestamp: new Date().toISOString() }));
 
